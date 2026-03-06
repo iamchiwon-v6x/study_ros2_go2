@@ -3,14 +3,17 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
-  "forwardPorts": [6080],
-  "portsAttributes": {
-    "6080": {
-      "label": "noVNC",
-      "onAutoForward": "notify"
+  "features": {
+    "ghcr.io/devcontainers/features/desktop-lite:1": {
+      "password": "vscode",
+      "webPort": "6080",
+      "vncPort": "5901"
     }
   },
-  "postStartCommand": "start-vnc.sh",
+  "forwardPorts": [6080, 5901],
+  "containerEnv": {
+    "DISPLAY": ":1"
+  },
   "customizations": {
     "vscode": {
       "extensions": [
