@@ -14,14 +14,12 @@ RUN apt-get update && apt-get install -y \
     ros-humble-turtlesim \
     && rm -rf /var/lib/apt/lists/*
 
+# index.html → vnc.html 심링크
+RUN ln -sf /usr/share/novnc/vnc.html /usr/share/novnc/index.html
+
 # noVNC 시작 스크립트
-RUN echo '#!/bin/bash\n\
-Xvfb :1 -screen 0 1280x720x24 &\n\
-sleep 1\n\
-x11vnc -display :1 -forever -nopw -quiet &\n\
-websockify --web /usr/share/novnc 6080 localhost:5900 &\n\
-echo "noVNC ready: http://localhost:6080/vnc.html"' \
-    > /usr/local/bin/start-vnc.sh && chmod +x /usr/local/bin/start-vnc.sh
+COPY start-vnc.sh /usr/local/bin/start-vnc.sh
+RUN chmod +x /usr/local/bin/start-vnc.sh
 
 ENV DISPLAY=:1
 
