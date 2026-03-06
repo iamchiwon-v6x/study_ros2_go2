@@ -34,13 +34,13 @@ ROS 2 Humble 학습 및 개발을 위한 devcontainer 환경.
 |---|------|------|
 | 001 | ROS 2 동작 환경 확인하기 | [001_verify_ros2_setup.md](tutorial/001_verify_ros2_setup.md) |
 | 002 | Turtlesim으로 ROS 2 체험하기 | [002_turtlesim.md](tutorial/002_turtlesim.md) |
-| 003 | 노드 이해하기 | tutorial/003_node.md |
-| 004 | 토픽 깊이 파보기 | tutorial/004_topic.md |
-| 005 | 서비스 이해하기 | tutorial/005_service.md |
-| 006 | 액션 이해하기 | tutorial/006_action.md |
-| 007 | 파라미터 다루기 | tutorial/007_parameter.md |
-| 008 | RQt 도구 활용 | tutorial/008_rqt_tools.md |
-| 009 | Bag 녹화와 재생 | tutorial/009_bag.md |
+| 003 | 노드 이해하기 | [003_node.md](tutorial/003_node.md) |
+| 004 | 토픽 깊이 파보기 | [004_topic.md](tutorial/004_topic.md) |
+| 005 | 서비스 이해하기 | [005_service.md](tutorial/005_service.md) |
+| 006 | 액션 이해하기 | [006_action.md](tutorial/006_action.md) |
+| 007 | 파라미터 다루기 | [007_parameter.md](tutorial/007_parameter.md) |
+| 008 | RQt 도구 활용 | [008_rqt_tools.md](tutorial/008_rqt_tools.md) |
+| 009 | Bag 녹화와 재생 | [009_bag.md](tutorial/009_bag.md) |
 
 ### 2부: Python으로 ROS 2 프로그래밍
 
