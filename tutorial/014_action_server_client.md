@@ -47,8 +47,8 @@ float32 remaining
 
 turtlesim의 내장 액션 서버에 요청을 보내는 Client를 먼저 만든다.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/my_first_pkg/rotate_client.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/my_first_pkg/rotate_client.py
 import rclpy
 from rclpy.action import ActionClient
 from rclpy.node import Node
@@ -107,7 +107,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-PYEOF
 ```
 
 ### 코드 해설
@@ -135,8 +134,8 @@ PYEOF
 여기서는 turtlesim의 RotateAbsolute 서버가 이미 존재하므로,
 Server 구현의 패턴을 보여주기 위해 **별도 이름으로 동일 타입의 서버**를 만든다.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/my_first_pkg/rotate_server.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/my_first_pkg/rotate_server.py
 import rclpy
 from rclpy.action import ActionServer
 from rclpy.node import Node
@@ -192,7 +191,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-PYEOF
 ```
 
 ### Server 핵심 패턴
@@ -224,7 +222,7 @@ PYEOF
 빌드:
 
 ```bash
-cd ~/ros2_ws
+cd /workspaces/ros2_go2/ros2_ws
 colcon build --packages-select my_first_pkg --symlink-install
 source install/setup.bash
 ```

@@ -16,14 +16,14 @@ Publisher 노드는 다음 흐름으로 동작한다:
 ## 사전 조건
 
 - [010. 패키지 만들기](010_create_package.md)에서 만든 `my_first_pkg` 패키지
-- 워크스페이스: `~/ros2_ws`
+- 워크스페이스: `/workspaces/ros2_go2/ros2_ws`
 
 ## 1. Publisher 노드 작성
 
 `my_first_pkg` 패키지에 새 파일을 만든다.
 
 ```python
-# ~/ros2_ws/src/my_first_pkg/my_first_pkg/simple_publisher.py
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/my_first_pkg/simple_publisher.py
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
@@ -83,7 +83,7 @@ entry_points={
 ## 3. 빌드와 실행
 
 ```bash
-cd ~/ros2_ws
+cd /workspaces/ros2_go2/ros2_ws
 colcon build --packages-select my_first_pkg --symlink-install
 source install/setup.bash
 ```
@@ -114,8 +114,8 @@ data: 'Hello ROS 2: 6'
 
 이번에는 실제로 터틀을 움직이는 Publisher를 만들어보자.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/my_first_pkg/turtle_circle.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/my_first_pkg/turtle_circle.py
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
@@ -146,7 +146,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-PYEOF
 ```
 
 `geometry_msgs.msg.Twist`는 로봇 속도 명령의 표준 메시지다:
@@ -172,7 +171,7 @@ ros2 run turtlesim turtlesim_node
 
 터미널 2:
 ```bash
-cd ~/ros2_ws && colcon build --packages-select my_first_pkg --symlink-install
+cd /workspaces/ros2_go2/ros2_ws && colcon build --packages-select my_first_pkg --symlink-install
 source install/setup.bash
 ros2 run my_first_pkg turtle_circle
 ```

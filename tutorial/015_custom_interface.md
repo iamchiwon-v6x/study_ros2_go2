@@ -18,12 +18,12 @@
 
 ## 사전 조건
 
-- 워크스페이스: `~/ros2_ws`
+- 워크스페이스: `/workspaces/ros2_go2/ros2_ws`
 
 ## 1. 인터페이스 패키지 생성
 
 ```bash
-cd ~/ros2_ws/src
+cd /workspaces/ros2_go2/ros2_ws/src
 ros2 pkg create --build-type ament_cmake my_interfaces
 ```
 
@@ -39,13 +39,12 @@ mkdir -p my_interfaces/action
 
 로봇 상태를 담는 메시지를 만든다.
 
-```bash
-cat << 'EOF' > my_interfaces/msg/RobotStatus.msg
+```text
+# my_interfaces/msg/RobotStatus.msg
 string name
 float64 battery_level
 float64[3] position
 bool is_moving
-EOF
 ```
 
 필드 타입 규칙:
@@ -62,13 +61,12 @@ EOF
 
 두 문자열을 합치는 서비스를 만든다.
 
-```bash
-cat << 'EOF' > my_interfaces/srv/ConcatStrings.srv
+```text
+# my_interfaces/srv/ConcatStrings.srv
 string a
 string b
 ---
 string result
-EOF
 ```
 
 `---`가 Request와 Response를 구분한다. 위가 Request, 아래가 Response다.
@@ -77,8 +75,8 @@ EOF
 
 목표 거리까지 이동하면서 진행률을 보고하는 액션을 만든다.
 
-```bash
-cat << 'EOF' > my_interfaces/action/Navigate.action
+```text
+# my_interfaces/action/Navigate.action
 # Goal
 float64 target_distance
 ---
@@ -89,7 +87,6 @@ bool success
 # Feedback
 float64 current_distance
 float64 progress_percent
-EOF
 ```
 
 액션은 `---`로 세 영역을 구분한다: Goal / Result / Feedback.
@@ -98,8 +95,8 @@ EOF
 
 인터페이스 파일을 빌드하려면 `CMakeLists.txt`에 등록해야 한다.
 
-```bash
-cat << 'EOF' > my_interfaces/CMakeLists.txt
+```cmake
+# my_interfaces/CMakeLists.txt
 cmake_minimum_required(VERSION 3.8)
 project(my_interfaces)
 
@@ -115,15 +112,14 @@ rosidl_generate_interfaces(${PROJECT_NAME}
 
 ament_export_dependencies(rosidl_default_runtime)
 ament_package()
-EOF
 ```
 
 핵심은 `rosidl_generate_interfaces` — 이 매크로가 `.msg`, `.srv`, `.action` 파일을 Python/C++ 코드로 변환한다.
 
 ## 6. package.xml 수정
 
-```bash
-cat << 'EOF' > my_interfaces/package.xml
+```xml
+<!-- my_interfaces/package.xml -->
 <?xml version="1.0"?>
 <package format="3">
   <name>my_interfaces</name>
@@ -144,7 +140,6 @@ cat << 'EOF' > my_interfaces/package.xml
     <build_type>ament_cmake</build_type>
   </export>
 </package>
-EOF
 ```
 
 의존성 정리:
@@ -158,7 +153,7 @@ EOF
 ## 7. 빌드
 
 ```bash
-cd ~/ros2_ws
+cd /workspaces/ros2_go2/ros2_ws
 colcon build --packages-select my_interfaces
 source install/setup.bash
 ```
@@ -223,8 +218,8 @@ from my_interfaces.action import Navigate
 
 예시 — RobotStatus Publisher:
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/my_first_pkg/status_publisher.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/my_first_pkg/status_publisher.py
 import rclpy
 from rclpy.node import Node
 from my_interfaces.msg import RobotStatus
@@ -262,7 +257,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-PYEOF
 ```
 
 `setup.py`에 entry_point를 추가하고 빌드하면 `ros2 topic echo /robot_status`로 확인할 수 있다.

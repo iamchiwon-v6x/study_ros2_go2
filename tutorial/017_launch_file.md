@@ -30,20 +30,20 @@ ROS 2는 세 가지 형식의 Launch 파일을 지원한다:
 ## 사전 조건
 
 - `my_first_pkg` 패키지의 노드들이 빌드된 상태
-- 워크스페이스: `~/ros2_ws`
+- 워크스페이스: `/workspaces/ros2_go2/ros2_ws`
 
 ## 1. Launch 디렉토리 생성
 
 ```bash
-mkdir -p ~/ros2_ws/src/my_first_pkg/launch
+mkdir -p /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/launch
 ```
 
 ## 2. 기본 Launch 파일 작성
 
 turtlesim과 teleop을 한 번에 실행하는 Launch 파일을 만든다.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/launch/turtlesim.launch.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/launch/turtlesim.launch.py
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
@@ -62,7 +62,6 @@ def generate_launch_description():
             prefix='xterm -e',  # 별도 터미널에서 실행
         ),
     ])
-PYEOF
 ```
 
 ### 구조 해설
@@ -98,7 +97,7 @@ data_files=[
 빌드 후 실행:
 
 ```bash
-cd ~/ros2_ws && colcon build --packages-select my_first_pkg --symlink-install
+cd /workspaces/ros2_go2/ros2_ws && colcon build --packages-select my_first_pkg --symlink-install
 source install/setup.bash
 ros2 launch my_first_pkg turtlesim.launch.py
 ```
@@ -109,8 +108,8 @@ ros2 launch my_first_pkg turtlesim.launch.py
 
 Launch 파일에서 노드의 파라미터를 지정할 수 있다.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/launch/param_demo.launch.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/launch/param_demo.launch.py
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
@@ -138,7 +137,6 @@ def generate_launch_description():
             }],
         ),
     ])
-PYEOF
 ```
 
 파라미터를 YAML 파일로 분리할 수도 있다:
@@ -151,8 +149,8 @@ parameters=['/path/to/params.yaml'],
 
 토픽이나 서비스 이름을 바꿀 수 있다.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/launch/remap_demo.launch.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/launch/remap_demo.launch.py
 from launch import LaunchDescription
 from launch_ros.actions import Node
 
@@ -173,7 +171,6 @@ def generate_launch_description():
             ],
         ),
     ])
-PYEOF
 ```
 
 `remappings`는 `(원래이름, 새이름)` 튜플의 리스트다. 이를 통해 코드 수정 없이 노드 간 연결을 변경할 수 있다.
@@ -182,8 +179,8 @@ PYEOF
 
 실행 시 인자를 받아 동적으로 설정을 변경할 수 있다.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/launch/configurable.launch.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/launch/configurable.launch.py
 from launch import LaunchDescription
 from launch.actions import DeclareLaunchArgument
 from launch.substitutions import LaunchConfiguration
@@ -224,7 +221,6 @@ def generate_launch_description():
             }],
         ),
     ])
-PYEOF
 ```
 
 실행 시 인자를 전달한다:

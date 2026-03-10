@@ -16,12 +16,12 @@ CLI의 `ros2 param set`은 외부에서 파라미터를 바꿔주는 것이다.
 ## 사전 조건
 
 - `my_first_pkg` 패키지
-- 워크스페이스: `~/ros2_ws`
+- 워크스페이스: `/workspaces/ros2_go2/ros2_ws`
 
 ## 1. 파라미터 선언과 사용
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/my_first_pkg/param_node.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/my_first_pkg/param_node.py
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import Twist
@@ -65,7 +65,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-PYEOF
 ```
 
 ### 핵심 API
@@ -89,7 +88,7 @@ PYEOF
 빌드 후 실행:
 
 ```bash
-cd ~/ros2_ws && colcon build --packages-select my_first_pkg --symlink-install
+cd /workspaces/ros2_go2/ros2_ws && colcon build --packages-select my_first_pkg --symlink-install
 source install/setup.bash
 ```
 
@@ -123,8 +122,8 @@ ros2 param set /param_turtle enable false
 
 위 코드에서는 `get_parameter`를 매번 호출한다. 더 효율적인 방법은 **파라미터가 변경될 때만 콜백**을 받는 것이다.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/my_first_pkg/param_callback_node.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/my_first_pkg/param_callback_node.py
 import rclpy
 from rclpy.node import Node
 from rcl_interfaces.msg import SetParametersResult
@@ -165,7 +164,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-PYEOF
 ```
 
 ### 콜백의 핵심
@@ -191,18 +189,17 @@ ros2 run my_first_pkg param_turtle --ros-args -p speed:=2.5 -p turn_rate:=1.0
 
 여러 파라미터를 파일로 관리하려면 YAML 파일을 사용한다.
 
-```bash
-cat << 'EOF' > ~/ros2_ws/turtle_params.yaml
+```yaml
+# /workspaces/ros2_go2/ros2_ws/turtle_params.yaml
 param_turtle:
   ros__parameters:
     speed: 2.0
     turn_rate: 0.8
     enable: true
-EOF
 ```
 
 ```bash
-ros2 run my_first_pkg param_turtle --ros-args --params-file ~/ros2_ws/turtle_params.yaml
+ros2 run my_first_pkg param_turtle --ros-args --params-file /workspaces/ros2_go2/ros2_ws/turtle_params.yaml
 ```
 
 ## 5. 파라미터 타입

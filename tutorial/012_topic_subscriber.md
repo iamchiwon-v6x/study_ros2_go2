@@ -14,12 +14,12 @@ Publisher가 타이머로 능동적으로 발행하는 것과 달리, Subscriber
 ## 사전 조건
 
 - [011. 토픽 Publisher 작성](011_topic_publisher.md)에서 만든 `simple_publisher` 노드
-- 워크스페이스: `~/ros2_ws`
+- 워크스페이스: `/workspaces/ros2_go2/ros2_ws`
 
 ## 1. Subscriber 노드 작성
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/my_first_pkg/simple_subscriber.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/my_first_pkg/simple_subscriber.py
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
@@ -49,7 +49,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-PYEOF
 ```
 
 ### 코드 해설
@@ -86,7 +85,7 @@ entry_points={
 ## 3. 빌드와 실행
 
 ```bash
-cd ~/ros2_ws
+cd /workspaces/ros2_go2/ros2_ws
 colcon build --packages-select my_first_pkg --symlink-install
 source install/setup.bash
 ```
@@ -111,8 +110,8 @@ ros2 run my_first_pkg simple_sub
 
 turtlesim의 위치 데이터를 구독하여 화면에 표시하는 실용적인 예제를 만들어보자.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/my_first_pkg/turtle_monitor.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/my_first_pkg/turtle_monitor.py
 import rclpy
 from rclpy.node import Node
 from turtlesim.msg import Pose
@@ -146,7 +145,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-PYEOF
 ```
 
 `turtlesim.msg.Pose` 메시지의 필드:
@@ -179,7 +177,7 @@ ros2 run turtlesim turtle_teleop_key
 
 터미널 3:
 ```bash
-cd ~/ros2_ws && colcon build --packages-select my_first_pkg --symlink-install
+cd /workspaces/ros2_go2/ros2_ws && colcon build --packages-select my_first_pkg --symlink-install
 source install/setup.bash
 ros2 run my_first_pkg turtle_monitor
 ```
@@ -190,8 +188,8 @@ ros2 run my_first_pkg turtle_monitor
 
 Publisher와 Subscriber를 **하나의 노드**에 결합할 수 있다. 위치를 구독하면서 벽에 가까워지면 방향을 바꾸는 노드를 만들어보자.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/my_first_pkg/turtle_boundary.py
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_first_pkg/my_first_pkg/turtle_boundary.py
 import rclpy
 from rclpy.node import Node
 from turtlesim.msg import Pose
@@ -237,7 +235,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-PYEOF
 ```
 
 이 패턴 — **구독한 데이터를 기반으로 발행** — 은 로봇 소프트웨어에서 가장 기본적인 구조다. 센서 데이터를 받아서 제어 명령을 내리는 모든 노드가 이 구조를 따른다.
