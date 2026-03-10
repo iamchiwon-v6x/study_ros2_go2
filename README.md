@@ -1,28 +1,39 @@
-# ROS 2 Humble Dev Environment
+# ROS 2 Foxy Dev Environment (Go2 동일 환경)
 
-ROS 2 Humble 학습 및 개발을 위한 devcontainer 환경.
+Go2 Jetson 실기기와 동일한 ROS 2 Foxy 환경에서 학습 및 개발하기 위한 devcontainer 환경.
 
-## 환경 구성
+## Go2 실기기 ↔ 개발환경 대응표
 
-| 항목 | 내용 |
-|------|------|
-| Base Image | `osrf/ros:humble-desktop` |
-| ROS Distro | Humble Hawksbill (Ubuntu 22.04) |
-| GUI 접속 | noVNC — 브라우저에서 `http://localhost:6080` |
-| 기본 도구 | python3-pip, git, vim |
+| 항목 | Go2 Jetson (실기기) | 개발 컨테이너 |
+|------|---------------------|---------------|
+| OS | Ubuntu 20.04.5 LTS | Ubuntu 20.04 (Foxy 베이스) |
+| ROS 2 | Foxy + CycloneDDS | Foxy + CycloneDDS |
+| Python | 3.8.10 | 3.8.x |
+| DDS | rmw_cyclonedds_cpp | rmw_cyclonedds_cpp |
+| CPU | ARMv8 aarch64 (Orin Nano) | x86_64 (호스트 PC) |
+| GUI | 직접 연결 | noVNC (`http://localhost:6080`) |
+
+> ⚠️ CPU 아키텍처(aarch64 vs x86_64)만 다릅니다. ROS 2 API, Python 버전, DDS 설정은 동일합니다.
 
 ## 시작하기
 
 1. VS Code에서 이 폴더를 열고 `Reopen in Container` 실행
 2. 브라우저에서 http://localhost:6080 접속 → 비밀번호 `vscode` 입력 → Connect
+3. CycloneDDS 확인: `echo $RMW_IMPLEMENTATION` → `rmw_cyclonedds_cpp` 출력되면 정상
 
 ## 설치된 패키지
 
-| 패키지 | 용도 |
-|--------|------|
-| ros-humble-desktop | ROS 2 기본 + rviz2, rqt 등 GUI 도구 |
-| ros-humble-turtlesim | ROS 2 학습용 시뮬레이터 |
-| desktop-lite (devcontainer feature) | 브라우저 기반 GUI 표시 (noVNC) |
+| 패키지 | 용도 | Go2 상태 |
+|--------|------|----------|
+| ros-foxy-desktop | ROS 2 기본 + rviz2, rqt 등 GUI 도구 | ✅ |
+| ros-foxy-turtlesim | ROS 2 학습용 시뮬레이터 | — |
+| ros-foxy-rmw-cyclonedds-cpp | Go2 통신 미들웨어 | ✅ |
+| ros-foxy-nav2-map-server | SLAM 맵 저장 도구 | ✅ |
+| ros-foxy-tf2-tools | 좌표 변환(TF) 디버깅 도구 | ✅ |
+| ros-foxy-slam-toolbox | 2D SLAM 맵 생성 엔진 | 설치 예정 |
+| ros-foxy-pointcloud-to-laserscan | 3D→2D LiDAR 변환 | 설치 예정 |
+| tmux | SSH 세션 유지 | 설치 예정 |
+| desktop-lite (devcontainer feature) | 브라우저 기반 GUI 표시 (noVNC) | — |
 
 > 패키지 추가 시 이 표를 업데이트할 것.
 

@@ -1,5 +1,5 @@
 {
-  "name": "ROS 2 Humble",
+  "name": "ROS 2 Foxy (Go2 동일 환경)",
   "build": {
     "dockerfile": "Dockerfile"
   },
@@ -12,7 +12,9 @@
   },
   "forwardPorts": [6080, 5901],
   "containerEnv": {
-    "DISPLAY": ":1"
+    "DISPLAY": ":1",
+    "RMW_IMPLEMENTATION": "rmw_cyclonedds_cpp",
+    "CYCLONEDDS_URI": "file:///etc/cyclonedds/cyclonedds.xml"
   },
   "customizations": {
     "vscode": {

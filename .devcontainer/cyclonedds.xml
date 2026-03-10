@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CycloneDDS xmlns="https://cdds.io/config"
+            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+            xsi:schemaLocation="https://cdds.io/config https://raw.githubusercontent.com/eclipse-cyclonedds/cyclonedds/master/etc/cyclonedds.xsd">
+  <Domain id="any">
+    <General>
+      <!--
+        Foxy의 CycloneDDS(0.7.x)는 <Interfaces> 대신 <NetworkInterfaceAddress>를 사용.
+        Go2 실기기에서는 eth0(192.168.123.x)으로 설정.
+        개발 컨테이너에서는 auto로 두어 자동 선택.
+      -->
+      <NetworkInterfaceAddress>auto</NetworkInterfaceAddress>
+      <AllowMulticast>default</AllowMulticast>
+    </General>
+    <!--
+      MinimumSocketReceiveBufferSize는 커널의 net.core.rmem_max보다 크면
+      도메인 생성이 실패한다. 컨테이너 기본값(~416KB)이 충분하므로 생략.
+      Go2 실기기에서 대용량 센서 데이터 수신 시 필요하면 커널 파라미터와 함께 설정할 것.
+    -->
+  </Domain>
+</CycloneDDS>

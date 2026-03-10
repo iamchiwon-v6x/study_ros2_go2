@@ -2,8 +2,9 @@
 
 ## 프로젝트 개요
 
-ROS 2 Humble 학습 및 Unitree Go2 제어를 위한 튜토리얼 프로젝트.
-devcontainer 환경에서 실행되며, noVNC를 통해 GUI를 제공한다.
+ROS 2 Foxy 학습 및 Unitree Go2 제어를 위한 튜토리얼 프로젝트.
+Go2 Jetson(Orin Nano) 실기기와 동일한 소프트웨어 환경(Foxy + CycloneDDS)을 devcontainer로 재현한다.
+noVNC를 통해 GUI를 제공한다.
 
 ## 튜토리얼 작성 규칙
 
@@ -46,13 +47,25 @@ devcontainer 환경에서 실행되며, noVNC를 통해 GUI를 제공한다.
 
 ## 기술 환경
 
-- **ROS Distro**: Humble Hawksbill (Ubuntu 22.04, LTS)
+- **ROS Distro**: Foxy Fitzroy (Ubuntu 20.04) — Go2 Jetson 실기기와 동일
+- **DDS**: CycloneDDS (`rmw_cyclonedds_cpp`) — Go2 통신 레이어와 동일
+- **Python**: 3.8.x — Go2 Jetson과 동일
 - **시뮬레이터**: unitree_mujoco (CycloneDDS 기반)
 - **ROS 2 브릿지**: unitree_ros2 (시뮬레이터/실기기 공용)
 - **GUI**: noVNC (브라우저에서 `http://localhost:6080`, 비밀번호: `vscode`)
+
+### Go2 Jetson 실기기 스펙 (참고)
+
+- **보드**: NVIDIA Jetson Orin Nano (aarch64)
+- **OS**: Ubuntu 20.04.5 LTS, L4T R35.3.1
+- **RAM**: 7.2GB + Swap 3.6GB (zram)
+- **CUDA**: V11.4.315
+- **파워 모드**: 15W (최대 성능)
 
 ## Go2 관련 참고
 
 - Unitree Go2는 ROS 2 토픽을 직접 사용하지 않고 **CycloneDDS**를 통해 `unitree_sdk2`로 통신한다
 - `unitree_ros2` 브릿지를 통해 SDK의 DDS 토픽을 ROS 2 토픽으로 변환한다
 - 시뮬레이터(unitree_mujoco)와 실기기가 **동일한 통신 레이어**를 사용하므로, 시뮬레이터용 코드가 실기기에서도 그대로 동작한다
+- 개발 컨테이너는 Go2 실기기와 동일한 Foxy + CycloneDDS 환경이므로, 컨테이너에서 작성한 코드를 실기기에 그대로 배포할 수 있다
+- 유일한 차이점은 CPU 아키텍처(개발: x86_64, 실기기: aarch64)이며, Python 패키지는 아키텍처 독립적이므로 문제없다

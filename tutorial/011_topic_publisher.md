@@ -22,8 +22,8 @@ Publisher 노드는 다음 흐름으로 동작한다:
 
 `my_first_pkg` 패키지에 새 파일을 만든다.
 
-```bash
-cat << 'PYEOF' > ~/ros2_ws/src/my_first_pkg/my_first_pkg/simple_publisher.py
+```python
+# ~/ros2_ws/src/my_first_pkg/my_first_pkg/simple_publisher.py
 import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String
@@ -54,7 +54,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-PYEOF
 ```
 
 ### 코드 해설

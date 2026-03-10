@@ -116,8 +116,8 @@ install_scripts=$base/lib/my_first_pkg
 
 Python 모듈 디렉토리에 노드 파일을 만든다.
 
-```bash
-cat << 'EOF' > my_first_pkg/my_first_pkg/hello_node.py
+```python
+# my_first_pkg/my_first_pkg/hello_node.py
 import rclpy
 from rclpy.node import Node
 
@@ -138,7 +138,6 @@ def main(args=None):
 
 if __name__ == '__main__':
     main()
-EOF
 ```
 
 코드의 핵심 구조:
