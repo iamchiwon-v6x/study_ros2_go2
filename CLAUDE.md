@@ -33,9 +33,60 @@ noVNC를 통해 GUI를 제공한다.
    - 박스, 폰트, 여백을 컴팩트하게 유지한다
 
 ### 코드 블록 규칙
-- 모든 명령어는 `bash` 코드 블록으로 감싼다
-- 명령어의 출력 예시는 별도 코드 블록(언어 지정 없음)으로 표시한다
-- 패키지명, 노드명, 토픽명은 인라인 코드(`` ` ``)로 표시한다
+
+#### 언어 지정 (필수)
+- 코드 블록에는 반드시 언어를 지정한다. 확장자별 매핑:
+  - `.py`, `.launch.py` → `python`
+  - `.yaml`, `.yml` → `yaml`
+  - `.xml` → `xml`
+  - `CMakeLists.txt` → `cmake`
+  - `.msg`, `.srv`, `.action` → `text`
+- **예외**: 명령어의 출력 예시는 언어 지정 없이 ` ``` `만 사용한다
+
+#### 파일 내용을 보여줄 때
+- 코드 블록 첫 줄에 파일 경로를 주석으로 표시한다
+- Python/YAML/CMake: `# /workspaces/ros2_go2/ros2_ws/src/패키지/파일명`
+- XML: `<!-- /workspaces/ros2_go2/ros2_ws/src/패키지/파일명 -->`
+- heredoc 패턴(`cat << 'PYEOF'`, `cat << 'EOF'`)은 **절대 사용하지 않는다**
+- `PYEOF`, `EOF` 등의 마커도 코드 블록 안에 포함하지 않는다
+
+#### Bash 명령어
+- 모든 실행 명령어는 ` ```bash ` 코드 블록으로 감싼다
+- 여러 명령어를 나열할 때도 하나의 `bash` 블록에 넣는다
+
+#### 경로 규칙
+- 워크스페이스 경로는 `/workspaces/ros2_go2/ros2_ws`를 사용한다
+- `~/ros2_ws`는 사용하지 않는다
+
+#### 인라인 코드
+- 패키지명, 노드명, 토픽명, 파일명은 인라인 코드(`` ` ``)로 표시한다
+
+#### 예시
+
+파일 내용:
+````markdown
+```python
+# /workspaces/ros2_go2/ros2_ws/src/my_pkg/my_node.py
+import rclpy
+from rclpy.node import Node
+```
+````
+
+Bash 명령어:
+````markdown
+```bash
+cd /workspaces/ros2_go2/ros2_ws
+colcon build --packages-select my_pkg
+source install/setup.bash
+```
+````
+
+명령어 출력:
+````markdown
+```
+[INFO] [my_node]: Hello, ROS 2!
+```
+````
 
 ## 커리큘럼 구성
 
